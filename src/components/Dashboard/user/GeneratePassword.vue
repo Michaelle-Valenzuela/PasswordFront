@@ -76,15 +76,18 @@ export default defineComponent({
         },
         onOptionalGenerateNow(e: any) {
           if ((!this.checkbox1 && !this.checkbox2 && !this.checkbox3 && !this.checkbox4)) {
-              alert("Necesitas seleccionar al menos un checkbox");
+              alert("Necesitas seleccionar al menos un checkbox");              
               return;
           } else if (this.longitud === 0) {
               alert("Necesitas establecer una longitud");
               return;
+          } else if(this.longitud < 8 || this.longitud > 20) {
+              alert("La longitud de caracteres es invalida");
+              return;
           } else if(this.longitud < this.cant_min_num + this.cant_min_car) {
               alert("Existe conflicto entre los parametros establecidos y la longitud deseada");
               return;
-          }
+          } 
           let selectedCharsets = '';
           if (this.checkbox1) selectedCharsets += this.charsets.uppercase;
           if (this.checkbox2) selectedCharsets += this.charsets.lowercase;
@@ -103,7 +106,7 @@ export default defineComponent({
           // console.log("Lower letters:", this.password_generate.match(/[a-z]/g)?.length || 0)
           // console.log("Upper letters:", this.password_generate.match(/[A-Z]/g)?.length || 0)
           // console.log("Lenght:", this.password_generate.length)
-          // console.log("----------------------------------------")
+          // console.log("----------------------------------------")          
         },
         async onClipboard() {
             try {
@@ -182,8 +185,8 @@ export default defineComponent({
                     <label class="LABEL_INPUT_AUTH" for="length">
                         Longitud
                     </label>
-                    <input v-model="longitud" class="INPUT_AUTH" min="0"
-                        max="30" id="length" type="number" placeholder="Longitud">
+                    <input v-model="longitud" class="INPUT_AUTH" min="8"
+                        max="20" id="length" type="number" placeholder="Longitud">
                 </div>
                 <div class="mb-4" v-if="checkbox3">
                     <label class="LABEL_INPUT_AUTH" for="cant_min_num">
