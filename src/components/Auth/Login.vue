@@ -3,6 +3,7 @@ import Buttons from '../UI/Buttons.vue';
 import { authStore } from "../../stores/authStore";
 import { mapStores } from 'pinia';
 import { defineComponent } from 'vue';
+import Password from 'primevue/password';
 
 export default defineComponent({
     props: [],
@@ -11,6 +12,16 @@ export default defineComponent({
     methods: {
         onLogin() {
             this.authStoreStore.actionMainAuthStore("ACTION_LOGIN", null);
+        },
+        changeVisibilityPassword() {
+            const passwordInput = document.getElementById('password');
+            if(passwordInput) {
+                if(passwordInput.getAttribute('type') === 'password') {
+                    passwordInput.setAttribute('type','text');
+                } else {
+                    passwordInput.setAttribute('type', 'password');
+                }
+            }
         }
     }
 });
@@ -33,12 +44,28 @@ export default defineComponent({
                 <input class="INPUT_AUTH" id="email" type="email" placeholder="E-mail" maxlength="100" minlength="10"
                     v-model="authStoreStore.form_data.email">
             </div>
-            <div class="mb-6">
+            <div class="mb-6 relative">
                 <label class="LABEL_INPUT_AUTH" for="password">
                     Contraseña
                 </label>
-                <input class="INPUT_AUTH" id="password" type="password" placeholder="******************" maxlength="24"
-                    minlength="8" v-model="authStoreStore.form_data.password">
+                <input 
+                    class="INPUT_AUTH" 
+                    id="password" 
+                    type="password" 
+                    placeholder="******************" 
+                    maxlength="24"
+                    minlength="8" 
+                    v-model="authStoreStore.form_data.password"
+                >
+                <!--Boton para ver/ocultar la contraseña-->
+                
+                <button
+                    type="button"
+                    class="absolute fa-solid fa-eye right-2 mt-3"
+                    @click="changeVisibilityPassword"
+                >                
+                </button>
+            
             </div>
             <div style="text-align: center;">
 
