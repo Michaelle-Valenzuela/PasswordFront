@@ -171,8 +171,45 @@ export default defineComponent({
               }
             }
           }
+          //>>>>>>>>>>>>>>>>        
+          //const recurso = document.getElementById("nombre_del_recurso_0").value  //Recuro el nombre del nuevo recurso
+          const recurso = document.querySelector('input[name="nombre_del_recurso"]').value
+          //console.log(recurso)
+          //>>>>>>>>>>>>>>>>          
+          
+          //console.log(this.userResourceStoreStore.DAPI_RESPONSE.response.data.length)  //Se recupera el tamaño del arreglo
+          
+          if(this.userResourceStoreStore.DAPI_RESPONSE.response.data.length != 0) {
+              for(var i = 0; i < this.userResourceStoreStore.DAPI_RESPONSE.response.data.length; i++){
+                //console.log(this.userResourceStoreStore.DAPI_RESPONSE.response.data[i].inputs_data.nombre_del_recurso)
+                if(this.userResourceStoreStore.DAPI_RESPONSE.response.data[i].inputs_data.nombre_del_recurso === recurso){
+                    toast.error("Ya existe un recurso con ese nombre",{
+                    position: "top-right", duration: 3500
+                    })
+                    return
+                }
+                
+              }              
+          }
+          //const duplicidad = arreglo.find((element) => element = recurso)
+          
+        //   for(var i = 0; i < 10; i++ ){            
+        //     if(recurso === this.userResourceStoreStore.DAPI_RESPONSE.response.data[i].inputs_data.nombre_del_recurso) {
+        //       console.log("Ya existe un recurso con ese nombre")
+        //       toast.error("Ya existe un recurso con ese nombre",{
+        //         position: "top-right", duration: 3500
+        //       })              
+        //     }
+        //   }
+          //console.log(this.userResourceStoreStore.DAPI_RESPONSE.response.data[0].inputs_data.nombre_del_recurso)
+          
+        //   if (recurso === "Ejemplo")
+        //   {
+        //     console.log("Funciona")
+        //   }
+        //>>>>>>>>>>>>>>>>>>>
           const ACTION: string = Object.keys(this.objectToEdit.data).length > 0 ? 'ACTION_EDIT_RESOURCE' : 'ACTION_CREATE_NEW_RESOURCE'
-          let prop2: object | undefined = undefined
+          let prop2: object | undefined = undefined          
           if (Object.keys(this.objectToEdit.data).length > 0) {
             prop2 = {
               id_resource_selected: this.objectToEdit.data._id,
